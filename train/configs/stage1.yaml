@@ -1,0 +1,40 @@
+data:
+  split_json: datasets/pig_rgbd_dataset_split.json
+  image_size: [480, 640]
+  patch_size: 16
+  depth_max_mm: 4000.0
+  invalid_sample_policy: skip
+  stage1_cross_scene_fraction: 0.0
+  stage1_cross_scene_seed: 20260825
+  samples_per_epoch: null
+augmentation:
+  probability: 0.5
+  background_splits: [train]
+  seed: 20260825
+patch_labels:
+  background_max: 0.0
+  full_min: 1.0
+model:
+  modality: rgbd
+  profile: small
+  overrides: {}
+loss:
+  name: weighted_cross_entropy
+  class_weights: auto
+  focal_gamma: 2.0
+connectivity:
+  loss_weight: 0.1
+  neighborhood: 8
+  postprocess: true
+training:
+  epochs: 50
+  batch_size: 8
+  num_workers: 4
+  learning_rate: 0.0003
+  weight_decay: 0.05
+  warmup_epochs: 5
+  grad_clip: 1.0
+  amp: true
+  device: auto
+  seed: 20260825
+  runs_root: runs

@@ -1,0 +1,34 @@
+stage1_checkpoint: null
+data:
+  split_json: datasets/pig_rgbd_dataset_split.json
+  image_size: [480, 640]
+  patch_size: 16
+  depth_max_mm: 4000.0
+  invalid_sample_policy: skip
+  samples_per_epoch: null
+model:
+  regressor_modality: rgbd
+  regressor_profile: small
+  regressor_overrides: {}
+  expert_routing: true
+  background_mode: zero
+loss:
+  name: smooth_l1
+  beta: 1.0
+connectivity:
+  neighborhood: 8
+  postprocess: true
+training:
+  epochs: 100
+  batch_size: 4
+  evaluation_batch_size: 4
+  pin_memory: false
+  num_workers: 4
+  learning_rate: 0.0001
+  weight_decay: 0.05
+  warmup_epochs: 5
+  grad_clip: 1.0
+  amp: true
+  device: auto
+  seed: 20260825
+  runs_root: runs
